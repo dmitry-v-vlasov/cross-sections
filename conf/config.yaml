@@ -1,0 +1,42 @@
+name: Mg+H; 8 channels with additional <i|∂²/∂R²|j> matrix elemets
+atoms:
+    - H
+    - Mg
+input-data:
+    quantum-chemical-data:
+        adiabatic-potentials: in/adpot.txt
+        <|∂/∂R|>-couplings: in/nacme.txt
+output-data:
+    cross-sections:
+        file-path: out/cross-sections.txt
+    probabilities:
+        file-path: out/probabilities.txt
+    s-matrix:
+        file-path: out/s-matrix.txt
+    r-matrix:
+        file-path: out/r-matrix.txt
+calculation:
+    xAiry-parameter: 3.0
+    energy:
+        start: 10.0
+        stop: 20.0
+        step: 0.1
+    impact-parameter:
+        start: 0.0
+        stop: 20.0
+        step: 0.01
+    internuclear-distance:
+        start: 0.5
+        stop: 100.0
+        step: 0.1
+    ODE-solver:
+        method: Runge-Kutta 4th order
+        internal-steps: 20
+        ortogonalization: true
+        couplings:
+            <|∂/∂R|>: true
+            <|∂²/∂R²|>: true
+            rotational: false
+            off-diagonal-hamiltonian-elements: false
+    interpolation-method: c-spline
+    integration-method: trapezoidal
